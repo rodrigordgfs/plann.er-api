@@ -126,6 +126,14 @@
     ajv-formats "^2.1.1"
     fast-uri "^2.0.0"
 
+"@fastify/cors@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@fastify/cors/-/cors-9.0.1.tgz#9ddb61b4a61e02749c5c54ca29f1c646794145be"
+  integrity sha512-YY9Ho3ovI+QHIL2hW+9X4XqQjXLjJqsU+sMV/xFsxZkE8p3GNnYVFpoOxF7SsP5ZL76gwvbo3V9L+FIekBGU4Q==
+  dependencies:
+    fastify-plugin "^4.0.0"
+    mnemonist "0.39.6"
+
 "@fastify/error@^3.3.0", "@fastify/error@^3.4.0":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@fastify/error/-/error-3.4.1.tgz#b14bb4cac3dd4ec614becbc643d1511331a6425c"
@@ -186,12 +194,19 @@
   dependencies:
     "@prisma/debug" "5.16.2"
 
-"@types/node@^20.14.10":
+"@types/node@*", "@types/node@^20.14.10":
   version "20.14.10"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.10.tgz#a1a218290f1b6428682e3af044785e5874db469a"
   integrity sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==
   dependencies:
     undici-types "~5.26.4"
+
+"@types/nodemailer@^6.4.15":
+  version "6.4.15"
+  resolved "https://registry.yarnpkg.com/@types/nodemailer/-/nodemailer-6.4.15.tgz#494be695e11c438f7f5df738fb4ab740312a6ed2"
+  integrity sha512-0EBJxawVNjPkng1zm2vopRctuWVCxk34JcIlRuXSf54habUWdz1FB7wHDqOqvDa8Mtpt0Q3LTXQkAs2LNyK5jQ==
+  dependencies:
+    "@types/node" "*"
 
 abort-controller@^3.0.0:
   version "3.0.0"
@@ -259,6 +274,11 @@ cookie@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.6.0.tgz#2798b04b071b0ecbff0dbb62a505a8efa4e19051"
   integrity sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==
+
+dayjs@^1.11.11:
+  version "1.11.11"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.11.tgz#dfe0e9d54c5f8b68ccf8ca5f72ac603e7e5ed59e"
+  integrity sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==
 
 esbuild@~0.21.5:
   version "0.21.5"
@@ -343,6 +363,18 @@ fast-uri@^2.0.0, fast-uri@^2.1.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-2.4.0.tgz#67eae6fbbe9f25339d5d3f4c4234787b65d7d55e"
   integrity sha512-ypuAmmMKInk5q7XcepxlnUWDLWv4GFtaJqAzWKqn62IpQ3pejtr5dTVbt3vwqVaMKmkNR55sTT+CqUKIaT21BA==
+
+fastify-plugin@^4.0.0:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-4.5.1.tgz#44dc6a3cc2cce0988bc09e13f160120bbd91dbee"
+  integrity sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==
+
+fastify-type-provider-zod@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/fastify-type-provider-zod/-/fastify-type-provider-zod-2.0.0.tgz#3a359d4a73155433ae1add7d1ad2a69e4ec6339a"
+  integrity sha512-LSbz6DikD9BcQmSDFn7uXFmrFS2gRMiSkwiQeIeAH3XEGOyjokJKsH4DRRuxSn7fTz1UNTNiujib4+MTNw+nOg==
+  dependencies:
+    zod-to-json-schema "^3.23.0"
 
 fastify@^4.28.1:
   version "4.28.1"
@@ -429,6 +461,23 @@ light-my-request@^5.11.0:
     cookie "^0.6.0"
     process-warning "^3.0.0"
     set-cookie-parser "^2.4.1"
+
+mnemonist@0.39.6:
+  version "0.39.6"
+  resolved "https://registry.yarnpkg.com/mnemonist/-/mnemonist-0.39.6.tgz#0b3c9b7381d9edf6ce1957e74b25a8ad25732f57"
+  integrity sha512-A/0v5Z59y63US00cRSLiloEIw3t5G+MiKz4BhX21FI+YBJXBOGW0ohFxTxO08dsOYlzxo87T7vGfZKYp2bcAWA==
+  dependencies:
+    obliterator "^2.0.1"
+
+nodemailer@^6.9.14:
+  version "6.9.14"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.14.tgz#845fda981f9fd5ac264f4446af908a7c78027f75"
+  integrity sha512-Dobp/ebDKBvz91sbtRKhcznLThrKxKt97GI2FAlAyy+fk19j73Uz3sBXolVtmcXjaorivqsbbbjDY+Jkt4/bQA==
+
+obliterator@^2.0.1:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/obliterator/-/obliterator-2.0.4.tgz#fa650e019b2d075d745e44f1effeb13a2adbe816"
+  integrity sha512-lgHwxlxV1qIg1Eap7LgIeoBWIMFibOjbrYPIPJZcI1mmGAI2m3lNYpK12Y+GBdPQ0U1hRwSord7GIaawz962qQ==
 
 on-exit-leak-free@^2.1.0:
   version "2.1.2"
@@ -630,3 +679,13 @@ uri-js@^4.4.1:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+zod-to-json-schema@^3.23.0:
+  version "3.23.1"
+  resolved "https://registry.yarnpkg.com/zod-to-json-schema/-/zod-to-json-schema-3.23.1.tgz#5225925b8ed5fa20096bd99be076c4b29b53d309"
+  integrity sha512-oT9INvydob1XV0v1d2IadrR74rLtDInLvDFfAa1CG0Pmg/vxATk7I2gSelfj271mbzeM4Da0uuDQE/Nkj3DWNw==
+
+zod@^3.23.8:
+  version "3.23.8"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.23.8.tgz#e37b957b5d52079769fb8097099b592f0ef4067d"
+  integrity sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==
