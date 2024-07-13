@@ -43,6 +43,8 @@ app.register(updateTrip);
 app.register(getTripDetails);
 app.register(getParticipant);
 
-app.listen({ port: env.PORT }).then(() => {
+const port = env.PORT || 4000;
+
+app.listen({ port }).then(() => {
   console.log("listening on port 3333");
 });
