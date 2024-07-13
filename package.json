@@ -2,8 +2,13 @@
   "name": "planner",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "18.0.0"
+  },
   "scripts": {
-    "dev": "tsx watch  --env-file .env src/server.ts"
+    "dev": "tsx watch  --env-file .env src/server.ts",
+    "build": "tsup src",
+    "start": "node dist/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +18,7 @@
     "@types/node": "^20.14.10",
     "@types/nodemailer": "^6.4.15",
     "prisma": "^5.16.2",
+    "tsup": "^8.1.0",
     "tsx": "^4.16.2",
     "typescript": "^5.5.3"
   },
