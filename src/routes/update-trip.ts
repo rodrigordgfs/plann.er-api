@@ -5,6 +5,7 @@ import { z } from "zod";
 import { getMailClient } from "./mail";
 import nodemailer from "nodemailer";
 import { dayjs } from "../lib/dayjs";
+import { ClientError } from "../errors/client-error";
 
 export async function updateTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().patch(
@@ -30,14 +31,16 @@ export async function updateTrip(app: FastifyInstance) {
       });
 
       if (!trip) {
-        throw new Error("Trip not found");
+        throw new ClientError("Trip not found");
       }
 
       if (dayjs(starts_at).isBefore(new Date())) {
-        throw new Error("A data de inicio deve ser maior que a data atual.");
+        throw new ClientError(
+          "A data de inicio deve ser maior que a data atual."
+        );
       }
       if (dayjs(ends_at).isBefore(starts_at)) {
-        throw new Error(
+        throw new ClientError(
           "A data de término deve ser maior que a data de inicio."
         );
       }
@@ -52,7 +55,7 @@ export async function updateTrip(app: FastifyInstance) {
       });
 
       if (conflictingActivitiesStartsAt.length > 0) {
-        throw new Error(
+        throw new ClientError(
           "Existem atividades com a data de ocorrência menor que a data de início da viagem."
         );
       }
@@ -67,7 +70,7 @@ export async function updateTrip(app: FastifyInstance) {
       });
 
       if (conflictingActivitiesEndsAT.length > 0) {
-        throw new Error(
+        throw new ClientError(
           "Existem atividades com a data de ocorrência maior que a data de termino da viagem."
         );
       }

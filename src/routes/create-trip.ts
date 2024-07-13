@@ -5,6 +5,8 @@ import { z } from "zod";
 import { getMailClient } from "./mail";
 import nodemailer from "nodemailer";
 import { dayjs } from "../lib/dayjs";
+import { ClientError } from "../errors/client-error";
+import { env } from "../env";
 
 export async function createTrip(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -12,11 +14,19 @@ export async function createTrip(app: FastifyInstance) {
     {
       schema: {
         body: z.object({
-          destination: z.string().min(4),
-          starts_at: z.coerce.date(),
-          ends_at: z.coerce.date(),
-          owner_name: z.string(),
-          owner_email: z.string().email(),
+          destination: z
+            .string({ required_error: "Destination is required" })
+            .min(4, {
+              message: "Destination must be at least 4 characters long",
+            }),
+          starts_at: z.coerce.date({
+            required_error: "Start date is required",
+          }),
+          ends_at: z.coerce.date({ required_error: "End date is required" }),
+          owner_name: z.string({ required_error: "Owner name is required" }),
+          owner_email: z
+            .string({ required_error: "Owner email is required" })
+            .email({ message: "Owner email must be a valid email" }),
           emails_to_invite: z.array(z.string().email()),
         }),
       },
@@ -32,10 +42,12 @@ export async function createTrip(app: FastifyInstance) {
       } = request.body;
 
       if (dayjs(starts_at).isBefore(new Date())) {
-        throw new Error("A data de inicio deve ser maior que a data atual.");
+        throw new ClientError(
+          "A data de inicio deve ser maior que a data atual."
+        );
       }
       if (dayjs(ends_at).isBefore(starts_at)) {
-        throw new Error(
+        throw new ClientError(
           "A data de término deve ser maior que a data de inicio."
         );
       }
@@ -65,7 +77,7 @@ export async function createTrip(app: FastifyInstance) {
 
       const formattedStartDate = dayjs(starts_at).format("LL");
       const formattedEndDate = dayjs(ends_at).format("LL");
-      const confirmationLink = `http://localhost:3333/trips/${trip.id}/confirm`;
+      const confirmationLink = `${env.API_BASE_URL}/trips/${trip.id}/confirm`;
 
       const mail = await getMailClient();
       const message = await mail.sendMail({
