@@ -45,6 +45,6 @@ app.register(getParticipant);
 
 const port = env.PORT || 4000;
 
-app.listen({ port }).then(() => {
+app.listen({ port, host: '0.0.0.0' }).then(() => {
   console.log(`listening on port ${port}`);
 });
