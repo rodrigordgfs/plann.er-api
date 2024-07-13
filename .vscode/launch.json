@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch Fastify API (TypeScript)",
+        "skipFiles": ["<node_internals>/**"],
+        "program": "${workspaceFolder}/src/server.ts",  // Substitua pelo caminho do seu arquivo principal
+        "preLaunchTask": "tsc: build - tsconfig.json",
+        "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+        "runtimeArgs": ["-r", "ts-node/register"],
+        "sourceMaps": true,
+        "envFile": "${workspaceFolder}/.env",
+        "console": "integratedTerminal"
+      }
+    ]
+  }
+  

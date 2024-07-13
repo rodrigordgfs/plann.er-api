@@ -63,9 +63,7 @@ export async function getActivity(app: FastifyInstance) {
         return acc;
       }, {} as Record<string, any[]>);
 
-      return {
-        activities: activitiesByDay,
-      };
+      return activitiesByDay
     }
   );
 }
