@@ -32,9 +32,7 @@ export async function getTripDetails(app: FastifyInstance) {
         throw new ClientError("Trip not found");
       }
 
-      return {
-        trip,
-      };
+      return trip
     }
   );
 }
