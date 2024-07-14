@@ -8,7 +8,7 @@ import { dayjs } from "../lib/dayjs";
 import { ClientError } from "../errors/client-error";
 
 export async function updateTrip(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().patch(
+  app.withTypeProvider<ZodTypeProvider>().put(
     "/trips/:tripId",
     {
       schema: {
