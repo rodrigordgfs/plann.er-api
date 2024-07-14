@@ -41,9 +41,9 @@ export async function createTrip(app: FastifyInstance) {
         emails_to_invite,
       } = request.body;
 
-      if (dayjs(starts_at).isBefore(new Date())) {
+      if (dayjs(starts_at).isBefore(dayjs(), 'day')) {
         throw new ClientError(
-          "A data de inicio deve ser maior que a data atual."
+          "A data de início deve ser maior ou igual à data atual."
         );
       }
       if (dayjs(ends_at).isBefore(starts_at)) {
