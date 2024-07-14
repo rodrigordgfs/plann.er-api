@@ -34,7 +34,7 @@ export async function updateTrip(app: FastifyInstance) {
         throw new ClientError("Trip not found");
       }
 
-      if (dayjs(starts_at).isBefore(new Date())) {
+      if (dayjs(starts_at).isBefore(dayjs(), 'day')) {
         throw new ClientError(
           "A data de inicio deve ser maior que a data atual."
         );
