@@ -18,6 +18,7 @@ import { getTripDetails } from "./routes/get-trip-details";
 import { getParticipant } from "./routes/get-participant";
 import { errorHandler } from "./utils/error-handler";
 import { env } from "./env";
+import { removeParticipant } from "./routes/remove-participant";
 
 const app = fastify();
 
@@ -42,6 +43,7 @@ app.register(createInvite);
 app.register(updateTrip);
 app.register(getTripDetails);
 app.register(getParticipant);
+app.register(removeParticipant);
 
 const port = env.PORT || 4000;
 
