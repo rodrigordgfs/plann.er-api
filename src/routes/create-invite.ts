@@ -33,6 +33,17 @@ export async function createInvite(app: FastifyInstance) {
         throw new ClientError("Trip not found");
       }
 
+      const participantExists = await prisma.participant.findFirst({
+        where: {
+          email,
+          trip_id: tripId,
+        },
+      });
+
+      if (participantExists) {
+        throw new ClientError("Participant already invited");
+      }
+
       const participant = await prisma.participant.create({
         data: {
           email,
