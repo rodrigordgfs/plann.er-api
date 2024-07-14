@@ -28,9 +28,7 @@ export async function getLinks(app: FastifyInstance) {
         throw new ClientError("Trip not found");
       }
 
-      return {
-        links: trip.links,
-      };
+      return trip.links
     }
   );
 }
