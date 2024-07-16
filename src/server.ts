@@ -20,6 +20,7 @@ import { errorHandler } from "./utils/error-handler";
 import { env } from "./env";
 import { removeParticipant } from "./routes/remove-participant";
 import { toggleDoneActivity } from "./routes/toggle-done-activity";
+import { updateActivity } from "./routes/update-activity";
 
 const app = fastify();
 
@@ -46,6 +47,7 @@ app.register(getTripDetails);
 app.register(getParticipant);
 app.register(removeParticipant);
 app.register(toggleDoneActivity);
+app.register(updateActivity);
 
 const port = env.PORT || 4000;
 
