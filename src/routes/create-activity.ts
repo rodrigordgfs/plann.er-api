@@ -48,7 +48,10 @@ export async function createActivity(app: FastifyInstance) {
       });
 
       return {
-        activityId: activity.id,
+        id: activity.id,
+        title: activity.title,
+        occurs_at: activity.occurs_at,
+        trip_id: activity.trip_id,
       };
     }
   );
