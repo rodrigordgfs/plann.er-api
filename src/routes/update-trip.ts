@@ -2,8 +2,6 @@ import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { getMailClient } from "./mail";
-import nodemailer from "nodemailer";
 import { dayjs } from "../lib/dayjs";
 import { ClientError } from "../errors/client-error";
 
@@ -34,7 +32,7 @@ export async function updateTrip(app: FastifyInstance) {
         throw new ClientError("Viagem não encontrada");
       }
 
-      if (dayjs(starts_at).isBefore(dayjs(), 'day')) {
+      if (dayjs(starts_at).isBefore(dayjs(), "day")) {
         throw new ClientError(
           "A data de inicio deve ser maior que a data atual."
         );
@@ -45,33 +43,49 @@ export async function updateTrip(app: FastifyInstance) {
         );
       }
 
+      const startsAtISO = dayjs(starts_at).toISOString();
+      const endsAtISO = dayjs(ends_at).toISOString();
+
       const conflictingActivitiesStartsAt = await prisma.activity.findMany({
         where: {
           trip_id: tripId,
           occurs_at: {
-            lt: starts_at,
+            lt: startsAtISO,
           },
+          is_done: false,
         },
       });
 
       if (conflictingActivitiesStartsAt.length > 0) {
-        throw new ClientError(
-          "Existem atividades com a data de ocorrência menor que a data de início da viagem."
+        const hasConflictingActivities = conflictingActivitiesStartsAt.some(
+          (activity) => {
+            return (
+              dayjs(activity.occurs_at).isSame(dayjs(starts_at), "day") &&
+              dayjs(activity.occurs_at).isBefore(dayjs(starts_at))
+            );
+          }
         );
+
+        if (hasConflictingActivities) {
+          throw new ClientError(
+            "Existem atividades com a data de ocorrência menor que a data de início da viagem."
+          );
+        }
       }
 
       const conflictingActivitiesEndsAT = await prisma.activity.findMany({
         where: {
           trip_id: tripId,
           occurs_at: {
-            gt: ends_at,
+            gt: endsAtISO,
           },
+          is_done: false,
         },
       });
 
       if (conflictingActivitiesEndsAT.length > 0) {
         throw new ClientError(
-          "Existem atividades com a data de ocorrência maior que a data de termino da viagem."
+          "Existem atividades com a data de ocorrência maior que a data de término da viagem."
         );
       }
 
@@ -81,8 +95,8 @@ export async function updateTrip(app: FastifyInstance) {
         },
         data: {
           destination,
-          starts_at,
-          ends_at,
+          starts_at: new Date(startsAtISO),
+          ends_at: new Date(endsAtISO),
         },
       });
 
