@@ -28,7 +28,7 @@ export async function createActivity(app: FastifyInstance) {
       });
 
       if (!trip) {
-        throw new ClientError("Trip not found");
+        throw new ClientError("Viagem não encontrada");
       }
 
       if (
@@ -36,7 +36,7 @@ export async function createActivity(app: FastifyInstance) {
           .startOf("day")
           .isBefore(dayjs(trip.starts_at).startOf("day"))
       ) {
-        throw new ClientError("Activity cannot occur before the trip starts");
+        throw new ClientError("A atividade não pode ocorrer antes do início da viagem");
       }
 
       if (
@@ -44,7 +44,7 @@ export async function createActivity(app: FastifyInstance) {
           .startOf("day")
           .isAfter(dayjs(trip.ends_at).startOf("day"))
       ) {
-        throw new ClientError("Activity cannot occur after the trip ends");
+        throw new ClientError("A atividade não pode ocorrer após o término da viagem");
       }
 
       const activity = await prisma.activity.create({

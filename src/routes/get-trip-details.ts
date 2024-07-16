@@ -29,7 +29,7 @@ export async function getTripDetails(app: FastifyInstance) {
       });
 
       if (!trip) {
-        throw new ClientError("Trip not found");
+        throw new ClientError("Viagem não encontrada");
       }
 
       return trip

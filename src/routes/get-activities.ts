@@ -25,7 +25,7 @@ export async function getActivity(app: FastifyInstance) {
       });
 
       if (!trip) {
-        throw new ClientError("Trip not found");
+        throw new ClientError("Viagem não encontrada");
       }
 
       // Função para gerar todas as datas entre duas datas

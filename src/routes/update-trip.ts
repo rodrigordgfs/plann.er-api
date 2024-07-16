@@ -31,7 +31,7 @@ export async function updateTrip(app: FastifyInstance) {
       });
 
       if (!trip) {
-        throw new ClientError("Trip not found");
+        throw new ClientError("Viagem não encontrada");
       }
 
       if (dayjs(starts_at).isBefore(dayjs(), 'day')) {

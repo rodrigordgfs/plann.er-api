@@ -23,7 +23,7 @@ export async function removeParticipant(app: FastifyInstance) {
       });
 
       if (!trip) {
-        throw new ClientError("Trip not found");
+        throw new ClientError("Viagem não encontrada");
       }
 
       const participant = await prisma.participant.findUnique({
@@ -33,11 +33,11 @@ export async function removeParticipant(app: FastifyInstance) {
       });
 
       if (!participant) {
-        throw new ClientError("Participant not found");
+        throw new ClientError("Participante não encontrado");
       }
 
       if (participant.is_owner) {
-        throw new ClientError("Cannot remove the owner of the trip");
+        throw new ClientError("Não é possível remover o proprietário da viagem");
       }
 
       await prisma.participant.delete({
@@ -47,7 +47,7 @@ export async function removeParticipant(app: FastifyInstance) {
       });
 
       return {
-        message: "Participant deleted"
+        message: "Participante excluído"
       };
     }
   );

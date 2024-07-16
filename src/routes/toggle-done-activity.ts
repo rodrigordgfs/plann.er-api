@@ -28,7 +28,7 @@ export async function toggleDoneActivity(app: FastifyInstance) {
       });
 
       if (!trip) {
-        throw new ClientError("Trip not found");
+        throw new ClientError("Viagem não encontrada");
       }
 
       const activity = await prisma.activity.findUnique({
@@ -36,7 +36,7 @@ export async function toggleDoneActivity(app: FastifyInstance) {
       });
 
       if (!activity) {
-        throw new ClientError("Activity not found");
+        throw new ClientError("Atividade não encontrada");
       }
 
       await prisma.activity.update({
@@ -46,7 +46,7 @@ export async function toggleDoneActivity(app: FastifyInstance) {
         },
       });
 
-      return { message: "Activity updated" };
+      return { message: "Atividade atualizada" };
     }
   );
 }

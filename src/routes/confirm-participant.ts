@@ -24,7 +24,7 @@ export async function confirmParticipant(app: FastifyInstance) {
       });
 
       if (!participantId) {
-        throw new ClientError("Participant not found");
+        throw new ClientError("Participante não encontrado");
       }
 
       if (participant?.is_confirmed) {

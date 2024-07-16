@@ -28,7 +28,7 @@ export async function createLink(app: FastifyInstance) {
       });
 
       if (!trip) {
-        throw new ClientError("Trip not found");
+        throw new ClientError("Viagem não encontrada");
       }
 
       const link = await prisma.link.create({
