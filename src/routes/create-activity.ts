@@ -35,7 +35,11 @@ export async function createActivity(app: FastifyInstance) {
         throw new ClientError("Activity cannot occur before the trip starts");
       }
 
-      if (dayjs(occurs_at).isAfter(dayjs(trip.ends_at))) {
+      if (
+        dayjs(occurs_at)
+          .startOf("day")
+          .isAfter(dayjs(trip.ends_at).startOf("day"))
+      ) {
         throw new ClientError("Activity cannot occur after the trip ends");
       }
 
