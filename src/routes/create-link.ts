@@ -40,7 +40,10 @@ export async function createLink(app: FastifyInstance) {
       });
 
       return {
-        linkId: link.id,
+        id: link.id,
+        title: link.title,
+        url: link.url,
+        trip_id: link.trip_id,
       };
     }
   );
