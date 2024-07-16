@@ -47,6 +47,7 @@ model Activity {
   title     String
   occurs_at DateTime
   trip_id   String
+  is_done   Boolean  @default(false)
 
   trip Trip @relation(fields: [trip_id], references: [id])
 

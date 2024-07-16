@@ -19,6 +19,7 @@ import { getParticipant } from "./routes/get-participant";
 import { errorHandler } from "./utils/error-handler";
 import { env } from "./env";
 import { removeParticipant } from "./routes/remove-participant";
+import { toggleDoneActivity } from "./routes/toggle-done-activity";
 
 const app = fastify();
 
@@ -44,9 +45,10 @@ app.register(updateTrip);
 app.register(getTripDetails);
 app.register(getParticipant);
 app.register(removeParticipant);
+app.register(toggleDoneActivity);
 
 const port = env.PORT || 4000;
 
-app.listen({ port, host: '0.0.0.0' }).then(() => {
+app.listen({ port, host: "0.0.0.0" }).then(() => {
   console.log(`listening on port ${port}`);
 });

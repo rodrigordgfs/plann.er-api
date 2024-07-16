@@ -60,6 +60,7 @@ export async function createActivity(app: FastifyInstance) {
         title: activity.title,
         occurs_at: activity.occurs_at,
         trip_id: activity.trip_id,
+        is_done: activity.is_done,
       };
     }
   );
