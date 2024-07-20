@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "engines": {
-    "node": "18.0.0"
+    "node": "22.1.0"
   },
   "scripts": {
     "dev": "tsx watch  --env-file .env src/server.ts",
@@ -26,6 +26,7 @@
   "dependencies": {
     "@fastify/cors": "^9.0.1",
     "@prisma/client": "5.16.2",
+    "@supabase/supabase-js": "^2.44.4",
     "bcrypt": "^5.1.1",
     "dayjs": "^1.11.11",
     "fastify": "^4.28.1",

@@ -21,6 +21,7 @@ import { env } from "./env";
 import { removeParticipant } from "./routes/remove-participant";
 import { toggleDoneActivity } from "./routes/toggle-done-activity";
 import { updateActivity } from "./routes/update-activity";
+import { signIn } from "./routes/auth/sign-in";
 
 const app = fastify();
 
@@ -33,6 +34,7 @@ app.setSerializerCompiler(serializerCompiler);
 
 app.setErrorHandler(errorHandler);
 
+app.register(signIn);
 app.register(createTrip);
 app.register(confirmTrip);
 app.register(confirmParticipant);
