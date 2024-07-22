@@ -133,6 +133,14 @@
     ajv-formats "^2.1.1"
     fast-uri "^2.0.0"
 
+"@fastify/auth@^4.6.1":
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/@fastify/auth/-/auth-4.6.1.tgz#8a9437ad4d9f908dd69821e0119180056d1f190d"
+  integrity sha512-J/UkZw6EYUX7aXu78YLV1uE1ESbHsGNKxyO+H82ixdC3AnzBT8qeBI6K19mqVHfJTICy5m9uspj7PjC7EvZQ/A==
+  dependencies:
+    fastify-plugin "^4.0.0"
+    reusify "^1.0.4"
+
 "@fastify/cors@^9.0.1":
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/@fastify/cors/-/cors-9.0.1.tgz#9ddb61b4a61e02749c5c54ca29f1c646794145be"

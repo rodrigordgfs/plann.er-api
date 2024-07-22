@@ -23,6 +23,7 @@ import { toggleDoneActivity } from "./routes/toggle-done-activity";
 import { updateActivity } from "./routes/update-activity";
 import { signIn } from "./routes/auth/sign-in";
 import { signUp } from "./routes/auth/sign-up";
+import authMiddleware from "./middleware/auth";
 
 const app = fastify();
 
@@ -34,6 +35,8 @@ app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
 app.setErrorHandler(errorHandler);
+
+app.register(authMiddleware);
 
 app.register(signIn);
 app.register(signUp);

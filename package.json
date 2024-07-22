@@ -24,6 +24,7 @@
     "typescript": "^5.5.3"
   },
   "dependencies": {
+    "@fastify/auth": "^4.6.1",
     "@fastify/cors": "^9.0.1",
     "@prisma/client": "5.16.2",
     "@supabase/supabase-js": "^2.44.4",
