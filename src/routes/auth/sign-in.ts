@@ -27,7 +27,15 @@ export async function signIn(app: FastifyInstance) {
         password,
       });
 
-      if (error || !data.user || !data.session) {
+      if (error) {
+        if (error.message === 'Email not confirmed') {
+          throw new ClientError("Por favor, verifique seu email antes de fazer login.");
+        } else {
+          throw new ClientError("Email ou senha inválidos");
+        }
+      }
+
+      if (!data.user || !data.session) {
         throw new ClientError("Email ou senha inválidos");
       }
 
