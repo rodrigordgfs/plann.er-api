@@ -25,7 +25,7 @@ export async function signUp(app: FastifyInstance) {
     async (request, reply) => {
       const { name, email, password } = request.body;
 
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -35,17 +35,17 @@ export async function signUp(app: FastifyInstance) {
         },
       });
 
-      if (authError) {
-        throw new ClientError(authError.message);
+      if (error) {
+        throw new ClientError(error.message);
       }
 
-      if (!authData) {
+      if (!data) {
         throw new ClientError("Erro ao criar usuário");
       }
 
       return reply.send({
-        id: authData.user?.id,
-        token: authData.session?.access_token,
+        id: data.user?.id,
+        message: "usuário criado com sucesso. Por favor, confirme seu e-mail!",
       });
     }
   );
