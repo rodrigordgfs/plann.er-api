@@ -42,6 +42,7 @@ export async function signIn(app: FastifyInstance) {
       return reply.send({
         id: data.user.id,
         token: data.session.access_token,
+        expires_at: data.session.expires_at
       });
     }
   );
