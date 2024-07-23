@@ -14,8 +14,19 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model User {
+  id          String        @unique
+  email       String        @unique
+  name        String
+  trip        Trip[]
+  participant Participant[]
+
+  @@map("user")
+}
+
 model Trip {
   id           String        @id @default(uuid())
+  user_id      String
   destination  String
   starts_at    DateTime
   ends_at      DateTime
@@ -24,6 +35,7 @@ model Trip {
   participants Participant[]
   activities   Activity[]
   links        Link[]
+  User         User          @relation(fields: [user_id], references: [id])
 
   @@map("trip")
 }
@@ -31,13 +43,13 @@ model Trip {
 model Participant {
   id String @id @default(uuid())
 
-  name         String?
-  email        String
+  user_id      String
+  trip_id      String
   is_confirmed Boolean @default(false)
   is_owner     Boolean @default(false)
 
-  trip_id String
-  trip    Trip   @relation(fields: [trip_id], references: [id])
+  trip Trip @relation(fields: [trip_id], references: [id])
+  user User @relation(fields: [user_id], references: [id])
 
   @@map("participants")
 }

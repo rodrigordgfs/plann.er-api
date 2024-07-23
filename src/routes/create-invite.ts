@@ -33,9 +33,19 @@ export async function createInvite(app: FastifyInstance) {
         throw new ClientError("Viagem não encontrada");
       }
 
-      const participantExists = await prisma.participant.findFirst({
+      const user = await prisma.user.findUnique({
         where: {
           email,
+        },
+      });
+
+      if (!user) {
+        throw new ClientError("Usuário não cadastrado na plataforma");
+      }
+
+      const participantExists = await prisma.participant.findFirst({
+        where: {
+          user_id: user.id,
           trip_id: tripId,
         },
       });
@@ -46,41 +56,10 @@ export async function createInvite(app: FastifyInstance) {
 
       const participant = await prisma.participant.create({
         data: {
-          email,
+          user_id: user.id,
           trip_id: tripId,
         },
       });
-
-      const formattedStartDate = dayjs(trip.starts_at).format("LL");
-      const formattedEndDate = dayjs(trip.ends_at).format("LL");
-
-      const mail = await getMailClient();
-
-      const confirmationLink = `${env.API_BASE_URL}/participants/${participant.id}/confirm`;
-
-      const message = await mail.sendMail({
-        from: {
-          name: "Equipe plann.er",
-          address: "team@plann.er",
-        },
-        to: participant.email,
-        subject: `Confirme sua presença na viagem para ${trip.destination} em ${formattedStartDate}`,
-        html: `
-            <div style="font-family: sans-serif; font-size: 16px; line-height: 1.6;">
-            <p>Você foi convidado(a) para participar de uma viagem para <strong>${trip.destination}</strong> nas datas de <strong>${formattedStartDate}</strong> até <strong>${formattedEndDate}</strong>.</p>
-            <p></p>
-            <p>Para confirmar sua presença na viagem, clique no link abaixo:</p>
-            <p></p>
-            <p>
-                <a href="${confirmationLink}">Confirmar viagem</a>
-            </p>
-            <p></p>
-            <p>Caso você não saiba do que se trata esse e-mail, apenas ignore esse e-mail.</p>
-            </div>
-        `.trim(),
-      });
-
-      console.log(nodemailer.getTestMessageUrl(message));
 
       return participant;
     }

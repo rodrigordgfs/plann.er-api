@@ -16,16 +16,26 @@ const authMiddleware: FastifyPluginAsync = async (app) => {
       const authHeader = request.headers.authorization;
 
       if (!authHeader) {
-        reply.code(401).send({ error: "Missing authorization header" });
+        reply.code(401).send({ message: "Missing authorization header" });
         return;
       }
 
       const token = authHeader.split(" ")[1];
 
+      if (!token || token.split('.').length !== 3) {
+        reply.code(401).send({ message: "Malformed or missing token" });
+        return;
+      }
+
       const { data, error } = await supabase.auth.getUser(token);
 
+      console.log('token:', token);
+      
+      console.log("Supabase Response Data:", data);
+      console.log("Supabase Response Error:", error);
+
       if (error || !data.user) {
-        reply.code(401).send({ error: "Invalid or expired token" });
+        reply.code(401).send({ message: "Invalid or expired token" });
         return;
       }
 

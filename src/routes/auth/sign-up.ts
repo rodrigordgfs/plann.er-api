@@ -3,6 +3,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { ClientError } from "../../errors/client-error";
 import supabase from "../../lib/supabase";
+import { prisma } from "../../lib/prisma";
 
 export async function signUp(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -27,26 +28,37 @@ export async function signUp(app: FastifyInstance) {
 
       const { data, error } = await supabase.auth.signUp({
         email,
-        password,
-        options: {
-          data: {
-            name,
-          },
-        },
+        password
       });
 
       if (error) {
         throw new ClientError(error.message);
       }
 
-      if (!data) {
+      if (!data || !data.user) {
         throw new ClientError("Erro ao criar usuário");
       }
 
-      return reply.send({
-        id: data.user?.id,
-        message: "usuário criado com sucesso. Por favor, confirme seu e-mail!",
-      });
+      try {
+        const userId = data.user.id;
+
+        await prisma.user.create({
+          data: {
+            id: userId,
+            name,
+            email,
+          },
+        });
+
+        return reply.send({
+          id: userId,
+          message:
+            "Usuário criado com sucesso. Por favor, confirme seu e-mail!",
+        });
+      } catch (err) {
+        await supabase.auth.admin.deleteUser(data.user.id);
+        throw new ClientError("Erro ao criar usuário na tabela local");
+      }
     }
   );
 }

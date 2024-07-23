@@ -25,8 +25,12 @@ export async function getParticipants(app: FastifyInstance) {
           participants: {
             select: {
               id: true,
-              email: true,
-              name: true,
+              user: {
+                select: {
+                   email: true,
+                   name: true,
+                }
+              },
               is_confirmed: true,
             },
           },
