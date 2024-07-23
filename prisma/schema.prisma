@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id          String        @unique
+  id          String        @id @unique
   email       String        @unique
   name        String
   trip        Trip[]
