@@ -24,6 +24,7 @@ import { updateActivity } from "./routes/update-activity";
 import { signIn } from "./routes/auth/sign-in";
 import { signUp } from "./routes/auth/sign-up";
 import authMiddleware from "./middleware/auth";
+import { getTrips } from "./routes/get-trips";
 
 const app = fastify();
 
@@ -41,6 +42,7 @@ app.register(authMiddleware);
 app.register(signIn);
 app.register(signUp);
 app.register(createTrip);
+app.register(getTrips);
 app.register(confirmTrip);
 app.register(confirmParticipant);
 app.register(createActivity);

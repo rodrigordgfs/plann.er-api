@@ -23,8 +23,7 @@ export async function getTripDetails(app: FastifyInstance) {
           id: true,
           destination: true,
           starts_at: true,
-          ends_at: true,
-          is_confirmed: true,
+          ends_at: true
         },
       });
 

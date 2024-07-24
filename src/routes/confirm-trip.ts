@@ -37,16 +37,16 @@ export async function confirmTrip(app: FastifyInstance) {
         throw new ClientError("Viagem não encontrada");
       }
 
-      if (trip.is_confirmed) {
-        return reply.redirect(`${env.APP_BASE_URL}/trips/${tripId}`);
-      }
+      // if (trip.is_confirmed) {
+      //   return reply.redirect(`${env.APP_BASE_URL}/trips/${tripId}`);
+      // }
 
       await prisma.trip.update({
         where: {
           id: tripId,
         },
         data: {
-          is_confirmed: true,
+          // is_confirmed: true,
         },
       });
 
