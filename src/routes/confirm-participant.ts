@@ -27,20 +27,20 @@ export async function confirmParticipant(app: FastifyInstance) {
         throw new ClientError("Participante não encontrado");
       }
 
-      if (participant?.is_confirmed) {
-        return reply.redirect(
-          `${env.APP_BASE_URL}/trips/${participant.trip_id}`
-        );
-      }
+      // if (participant?.is_confirmed) {
+      //   return reply.redirect(
+      //     `${env.APP_BASE_URL}/trips/${participant.trip_id}`
+      //   );
+      // }
 
-      await prisma.participant.update({
-        where: {
-          id: participantId,
-        },
-        data: {
-          is_confirmed: true,
-        },
-      });
+      // await prisma.participant.update({
+      //   where: {
+      //     id: participantId,
+      //   },
+      //   data: {
+      //     is_confirmed: true,
+      //   },
+      // });
 
       return reply.redirect(
         `${env.APP_BASE_URL}/trips/${participant?.trip_id}`

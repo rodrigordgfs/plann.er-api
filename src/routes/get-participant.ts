@@ -27,7 +27,7 @@ export async function getParticipant(app: FastifyInstance) {
                name: true,
             }
           },
-          is_confirmed: true,
+          // is_confirmed: true,
         },
       });
 

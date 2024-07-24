@@ -64,7 +64,7 @@ export async function createTrip(app: FastifyInstance) {
                 {
                   user_id,
                   is_owner: true,
-                  is_confirmed: true,
+                  // is_confirmed: true,
                 },
                 // ...emails_to_invite.map((email) => {
                 //   return { email, user_id: 'id' };
