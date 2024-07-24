@@ -14,5 +14,8 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
       errors: error.flatten().fieldErrors,
     });
   }
-  return reply.status(200).send({ message: "" });
+
+  console.log(error);
+  
+  return reply.status(500).send({ message: error.message });
 };
