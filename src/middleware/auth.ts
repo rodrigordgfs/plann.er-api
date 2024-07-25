@@ -29,11 +29,6 @@ const authMiddleware: FastifyPluginAsync = async (app) => {
 
       const { data, error } = await supabase.auth.getUser(token);
 
-      console.log('token:', token);
-      
-      console.log("Supabase Response Data:", data);
-      console.log("Supabase Response Error:", error);
-
       if (error || !data.user) {
         reply.code(401).send({ message: "Invalid or expired token" });
         return;

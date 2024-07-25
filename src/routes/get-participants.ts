@@ -26,11 +26,13 @@ export async function getParticipants(app: FastifyInstance) {
             select: {
               id: true,
               is_confirmed: true,
+              is_owner: true,
               user: {
                 select: {
-                   email: true,
-                   name: true,
-                }
+                  id: true,
+                  email: true,
+                  name: true,
+                },
               },
             },
           },
@@ -41,7 +43,7 @@ export async function getParticipants(app: FastifyInstance) {
         throw new ClientError("Viagem não encontrada");
       }
 
-      return trip.participants
+      return trip.participants;
     }
   );
 }
