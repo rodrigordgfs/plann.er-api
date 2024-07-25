@@ -30,12 +30,32 @@ export async function getTrips(app: FastifyInstance) {
       }
 
       const trips = await prisma.trip.findMany({
-        where: { user_id },
+        where: { 
+          participants: {
+            some: {
+              user_id
+            }
+          }
+         },
         select: {
           id: true,
           destination: true,
           starts_at: true,
           ends_at: true,
+          participants: {
+            select: {
+              id: true,
+              is_confirmed: true,
+              is_owner: true,
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
+                },
+              },
+            }
+          },
           _count: {
             select: {
               participants: true,

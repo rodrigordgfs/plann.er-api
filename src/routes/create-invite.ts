@@ -51,7 +51,7 @@ export async function createInvite(app: FastifyInstance) {
       });
 
       if (participantExists) {
-        throw new ClientError("Participante já convidado");
+        throw new ClientError("Participante já convidado para esta viagem");
       }
 
       const participant = await prisma.participant.create({
