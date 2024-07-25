@@ -54,14 +54,29 @@ export async function createInvite(app: FastifyInstance) {
         throw new ClientError("Participante já convidado para esta viagem");
       }
 
-      const participant = await prisma.participant.create({
+      await prisma.participant.create({
         data: {
           user_id: user.id,
           trip_id: tripId,
         },
       });
 
-      return participant;
+      const participants = await prisma.participant.findMany({
+        where: {
+          trip_id: tripId,
+        },
+        include: {
+          user: {
+            select: {
+              id: true,
+              email: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      return participants;
     }
   );
 }
