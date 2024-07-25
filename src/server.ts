@@ -5,7 +5,6 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from "fastify-type-provider-zod";
-import { confirmTrip } from "./routes/confirm-trip";
 import { confirmParticipant } from "./routes/confirm-participant";
 import { createActivity } from "./routes/create-activity";
 import { getActivity } from "./routes/get-activities";
@@ -43,7 +42,6 @@ app.register(signIn);
 app.register(signUp);
 app.register(createTrip);
 app.register(getTrips);
-app.register(confirmTrip);
 app.register(confirmParticipant);
 app.register(createActivity);
 app.register(getActivity);

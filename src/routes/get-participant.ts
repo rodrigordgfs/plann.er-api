@@ -21,13 +21,14 @@ export async function getParticipant(app: FastifyInstance) {
         where: { id: participantId },
         select: {
           id: true,
+          is_confirmed: true,
+          is_owner: true,
           user: {
             select: {
-               email: true,
-               name: true,
-            }
+              email: true,
+              name: true,
+            },
           },
-          // is_confirmed: true,
         },
       });
 
