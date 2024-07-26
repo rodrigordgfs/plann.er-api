@@ -26,6 +26,7 @@ import authMiddleware from "./middleware/auth";
 import { getTrips } from "./routes/get-trips";
 import { removeLink } from "./routes/remove-link";
 import { removeTrip } from "./routes/remove-trip";
+import { getUsers } from "./routes/get-users";
 
 const app = fastify();
 
@@ -59,6 +60,7 @@ app.register(toggleDoneActivity);
 app.register(updateActivity);
 app.register(removeLink);
 app.register(removeTrip);
+app.register(getUsers);
 
 const port = env.PORT || 4000;
 

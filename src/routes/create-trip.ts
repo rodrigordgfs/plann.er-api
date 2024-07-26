@@ -32,9 +32,7 @@ export async function createTrip(app: FastifyInstance) {
         request.body;
 
       const user = await prisma.user.findUnique({
-        where: {
-          id: user_id,
-        },
+        where: { id: user_id },
       });
 
       if (!user) {
@@ -52,6 +50,33 @@ export async function createTrip(app: FastifyInstance) {
         );
       }
 
+      const participants = (
+        await Promise.all(
+          emails_to_invite.map(async (email) => {
+            const invitedUser = await prisma.user.findUnique({
+              where: { email },
+            });
+            if (invitedUser) {
+              return {
+                user_id: invitedUser.id,
+                is_owner: false,
+                is_confirmed: false,
+              };
+            }
+          })
+        )
+      ).filter(Boolean) as Array<{
+        user_id: string;
+        is_owner: boolean;
+        is_confirmed: boolean;
+      }>;
+
+      participants.push({
+        user_id,
+        is_owner: true,
+        is_confirmed: true,
+      });
+
       const trip = await prisma.trip.create({
         data: {
           user_id,
@@ -60,16 +85,7 @@ export async function createTrip(app: FastifyInstance) {
           ends_at,
           participants: {
             createMany: {
-              data: [
-                {
-                  user_id,
-                  is_owner: true,
-                  is_confirmed: true,
-                },
-                // ...emails_to_invite.map((email) => {
-                //   return { email, user_id: 'id' };
-                // }),
-              ],
+              data: participants,
             },
           },
         },
