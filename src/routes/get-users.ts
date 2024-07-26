@@ -17,10 +17,10 @@ export async function getUsers(app: FastifyInstance) {
       const { email } = request.query;
 
       const users = await prisma.user.findMany({
-        where: { email }
+        where: { email },
       });
 
-      return users
+      return users;
     }
   );
 }
