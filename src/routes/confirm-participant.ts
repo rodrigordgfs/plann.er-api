@@ -64,6 +64,7 @@ export async function confirmParticipant(app: FastifyInstance) {
               id: true,
               email: true,
               name: true,
+              image_url: true
             },
           },
         },
