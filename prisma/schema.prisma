@@ -18,6 +18,7 @@ model User {
   id          String        @id @unique
   email       String        @unique
   name        String
+  image_url   String?
   trip        Trip[]
   participant Participant[]
 

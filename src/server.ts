@@ -27,6 +27,8 @@ import { getTrips } from "./routes/get-trips";
 import { removeLink } from "./routes/remove-link";
 import { removeTrip } from "./routes/remove-trip";
 import { getUsers } from "./routes/get-users";
+import { updateUser } from "./routes/update-user";
+import { getUser } from "./routes/get-user";
 
 const app = fastify();
 
@@ -61,6 +63,8 @@ app.register(updateActivity);
 app.register(removeLink);
 app.register(removeTrip);
 app.register(getUsers);
+app.register(updateUser);
+app.register(getUser);
 
 const port = env.PORT || 4000;
 

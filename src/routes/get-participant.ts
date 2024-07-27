@@ -27,6 +27,7 @@ export async function getParticipant(app: FastifyInstance) {
             select: {
               email: true,
               name: true,
+              image_url: true,
             },
           },
         },
